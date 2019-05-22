@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_menu"
+        android:title="Profil"
+        android:icon="@android:drawable/star_off"/>
+
+    <item
+        android:id="@+id/contact_menu"
+        android:title="Kontak"
+        android:icon="@android:drawable/ic_menu_gallery"/>
+
+    <item
+        android:id="@+id/friend_menu"
+        android:title="Teman"
+        android:icon="@android:drawable/ic_menu_view"/>
+
+</menu>
