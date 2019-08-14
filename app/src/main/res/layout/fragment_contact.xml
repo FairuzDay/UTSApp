@@ -20,19 +20,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="08124116898"/>
+            android:text="@string/not_setting_up_yet"/>
         <TextView
             android:id="@+id/text_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="fairuzday@icloud.com"/>
+            android:text="@string/not_setting_up_yet"/>
         <TextView
             android:id="@+id/text_social_media"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="FB/IG : FairuzDay"/>
+            android:text="@string/not_setting_up_yet"/>
     </LinearLayout>
 
 </FrameLayout>

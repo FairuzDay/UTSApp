@@ -1,8 +1,11 @@
 package com.unikom.ujiantengahsemester;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -39,10 +42,24 @@ public class OnBoardingActivity extends AppCompatActivity {
 
         mSlide.setAdapter(mAdapterSlide);
 
+        SharedPreferences sharedPref = OnBoardingActivity.this.getPreferences(Context.MODE_PRIVATE);
+        int firstOpen = sharedPref.getInt("firstOpen", 0);
+
+        if (firstOpen == 1){
+            startActivity(new Intent(OnBoardingActivity.this, LoginActivity.class));
+            finish();
+        }
+
+
         mBtnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(OnBoardingActivity.this, MainActivity.class));
+                SharedPreferences sharedPref = OnBoardingActivity.this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("firstOpen", 1);
+                editor.apply();
+                editor.commit();
+                startActivity(new Intent(OnBoardingActivity.this, LoginActivity.class));
                 finish();
             }
         });

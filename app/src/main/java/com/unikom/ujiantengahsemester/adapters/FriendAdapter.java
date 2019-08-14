@@ -1,7 +1,9 @@
 package com.unikom.ujiantengahsemester.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +13,20 @@ import com.unikom.ujiantengahsemester.R;
 import com.unikom.ujiantengahsemester.models.Friends;
 
 import java.util.ArrayList;
+import java.util.List;
+
 /**tanggal : 21-05-2019
  *Nim     : 10116568
  *Nama    : Muh.Fairuz Hadi Day
  *Kelas    : IF-13
  */
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder> {
-    ArrayList<Friends> friends ;
+    List<Friends> friends ;
     Context context;
     private ClickHandler mClick;
     private ArrayList<Integer> mSelected;
 
-    public FriendAdapter(ArrayList<Friends> friends, Context context, ClickHandler mClick) {
+    public FriendAdapter(List<Friends> friends, Context context, ClickHandler mClick) {
         this.friends = friends;
         this.context = context;
         this.mClick = mClick;

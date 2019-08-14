@@ -1,7 +1,37 @@
 package com.unikom.ujiantengahsemester.models;
 
-public class Friends {
-    private String fnim, fname, fclass, fphone, femail, fsosmed;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+/**tanggal : 11-08-2019
+ *Nim     : 10116568
+ *Nama    : Muh.Fairuz Hadi Day
+ *Kelas    : IF-13
+ */
+
+@Entity(tableName = "table_friend")
+public  class Friends {
+
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "fnim")
+    private String fnim;
+
+    @ColumnInfo(name = "fname")
+    private String fname;
+
+    @ColumnInfo(name = "fclass")
+    private String fclass;
+
+    @ColumnInfo(name = "fphone")
+    private String fphone;
+
+    @ColumnInfo(name = "femail")
+    private String femail;
+
+    @ColumnInfo(name = "fsosmed")
+    private String fsosmed;
 
     public Friends(String fnim, String fname, String fclass, String fphone, String femail, String fsosmed) {
         this.fnim = fnim;

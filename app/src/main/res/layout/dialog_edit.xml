@@ -7,54 +7,56 @@
     android:padding="10dp">
 
     <TextView
+        android:id="@+id/editDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Data"
+        android:text="@string/edit_data"
         android:layout_gravity="center_horizontal"/>
 
     <EditText
         android:id="@+id/edit_nim"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="nim"/>
+        android:inputType="number"
+        android:hint="@string/nim"/>
 
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="name"/>
+        android:hint="@string/name"/>
 
     <EditText
         android:id="@+id/edit_class"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="class"/>
+        android:hint="@string/c"/>
 
     <EditText
         android:id="@+id/edit_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="phone"/>
+        android:inputType="phone"
+        android:hint="@string/phone"/>
 
     <EditText
         android:id="@+id/edit_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:hint="email"/>
+        android:hint="@string/email"/>
 
     <EditText
         android:id="@+id/edit_sosmed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="sosmed"/>
+        android:hint="@string/sosmed"/>
 
     <Button
         android:id="@+id/save_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:text="save"
+        android:text="@string/save"
         android:textColor="@android:color/white"/>
 </LinearLayout>

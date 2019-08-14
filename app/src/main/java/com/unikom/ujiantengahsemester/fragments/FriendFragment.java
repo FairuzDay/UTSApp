@@ -5,28 +5,33 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.unikom.ujiantengahsemester.R;
 import com.unikom.ujiantengahsemester.adapters.FriendAdapter;
 import com.unikom.ujiantengahsemester.models.Friends;
+import com.unikom.ujiantengahsemester.viewModel.FriendViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-/**tanggal : 21-05-2019
+/**tanggal : 11-08-2019
  *Nim     : 10116568
  *Nama    : Muh.Fairuz Hadi Day
  *Kelas    : IF-13
@@ -35,8 +40,8 @@ public class FriendFragment extends Fragment {
 
     private RecyclerView listFriend;
     private FriendAdapter friendAdapter;
-    private ArrayList<Friends> friendsData;
     private FloatingActionButton fab ;
+    private FriendViewModel mFriendViewModel;
 
     public FriendFragment() { }
 
@@ -46,17 +51,17 @@ public class FriendFragment extends Fragment {
         listFriend = view.findViewById(R.id.list_view);
         fab = view.findViewById(R.id.fab_add);
 
-        friendsData = new ArrayList<>();
-        Friends f0 = new Friends("10116567","Frangky  Michael", "IF-13", "089680517559", "frangkimichael97@gmail.com", "frangkimichael");
-        Friends f1 = new Friends("100516238","Awan Gustiawan", "IS-06", "08922716231", "awan@gmail.com", "awangustiawan");
-        Friends f2 = new Friends("10116561","Egi Widianto", "IF-13", "08218261628", "egiwidianto@gmail.com", "egiwidianto");
-        friendsData.add(f0);
-        friendsData.add(f1);
-        friendsData.add(f2);
-        friendAdapter = new FriendAdapter(friendsData, getContext(), new FriendAdapter.ClickHandler() {
+        mFriendViewModel = ViewModelProviders.of(this).get(FriendViewModel.class);
+        mFriendViewModel.getAllFriends().observe(this, new Observer<List<Friends>>() {
             @Override
-            public void onItemClick(int position) {
-                showOption(position, friendsData.get(position));
+            public void onChanged(final List<Friends> friends) {
+                friendAdapter = new FriendAdapter(friends, getContext(), new FriendAdapter.ClickHandler() {
+                    @Override
+                    public void onItemClick(int position) {
+                        showOption(position, friends.get(position));
+                    }
+                });
+                listFriend.setAdapter(friendAdapter);
             }
         });
 
@@ -75,7 +80,7 @@ public class FriendFragment extends Fragment {
     private void showOption(final int position, final Friends friends){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         String[] action = {"Edit","Delete"};
-        builder.setTitle("Share This !");
+        builder.setTitle("Do Something!");
         builder.setItems(action, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -83,7 +88,7 @@ public class FriendFragment extends Fragment {
                     setData(position, friends);
                 }
                 else {
-                    deleteData(position);
+                    deleteData(friends);
                 }
             }
         });
@@ -95,6 +100,7 @@ public class FriendFragment extends Fragment {
         View v = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit, null, false);
 
         final EditText eNim, eName, eClass, ePhone, eEmail, eSosmed;
+        TextView textEdit;
         Button btnSave;
 
         eNim = v.findViewById(R.id.edit_nim);
@@ -104,9 +110,12 @@ public class FriendFragment extends Fragment {
         eEmail = v.findViewById(R.id.edit_email);
         eSosmed = v.findViewById(R.id.edit_sosmed);
         btnSave = v.findViewById(R.id.save_edit);
+        textEdit = v.findViewById(R.id.editDialog);
 
         if (i != -1) {
+            textEdit.setText("Edit Data");
             eNim.setText(friends.getFnim());
+            eNim.setFocusable(false);
             eName.setText(friends.getFname());
             eClass.setText(friends.getFclass());
             ePhone.setText(friends.getFphone());
@@ -135,9 +144,9 @@ public class FriendFragment extends Fragment {
                             eSosmed.getText().toString()
                     );
                     if (i != -1) {
-                        friendsData.set(i, newFriend);
+                        mFriendViewModel.updateFriend(newFriend);
                     }else {
-                        friendsData.add(newFriend);
+                        mFriendViewModel.insertFriend(newFriend);
                     }
                     listFriend.setAdapter(friendAdapter);
                     ((FriendAdapter) friendAdapter).notifyDataSetChanged();
@@ -148,8 +157,8 @@ public class FriendFragment extends Fragment {
         d.setContentView(v);
         d.show();
     }
-    private void deleteData(int position){
-        friendsData.remove(position);
+    private void deleteData(Friends friends){
+        mFriendViewModel.removeFriend(friends);
         friendAdapter.notifyDataSetChanged();
     }
 }

@@ -2,7 +2,7 @@ package com.unikom.ujiantengahsemester;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 /**tanggal : 21-05-2019
  *Nim     : 10116568
